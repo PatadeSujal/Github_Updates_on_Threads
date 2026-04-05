@@ -24,7 +24,7 @@ public class AiService {
         this.restTemplate = new RestTemplate();
     }
 
-    public String generatePost(String repoName, String repoDescription, String commitMessage) {
+    public String generatePost(String repoName, String repoDescription, String commitMessage, String commitUrl) {
         if (apiKey == null || apiKey.isEmpty() || apiKey.equals("YOUR_GEMINI_API_KEY")) {
             System.out.println("[MOCK] Gemini API Key missing! Returning basic string.");
             return "🚀 Update to " + repoName + "!\n\n📝 Changes: " + commitMessage;
@@ -32,12 +32,19 @@ public class AiService {
 
         String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=" + apiKey;
 
-        String prompt = "You are a professional social media manager for a developer. " +
-                "Write a short, engaging Threads post about a new code commit to a GitHub repository.\n" +
-                "Repository Name: " + repoName + "\n" +
-                "Repository Description: " + (repoDescription != null ? repoDescription : "N/A") + "\n" +
+        String prompt = "You are an enthusiastic developer sharing a project update on Threads. " +
+                "Write an engaging Threads post explaining this code commit.\n" +
+                "Project Name: " + repoName + "\n" +
+                "Project Context: " + (repoDescription != null && !repoDescription.isEmpty() ? repoDescription : "A cool software application") + "\n" +
                 "Commit Message: " + commitMessage + "\n" +
-                "Instructions: Keep it under 250 characters. Be casual and enthusiastic. Do NOT use any hashtags. Do not wrap the response in quotes.";
+                "Commit URL: " + (commitUrl != null ? commitUrl : "") + "\n\n" +
+                "STRICT INSTRUCTIONS:\n" +
+                "1. Briefly explain what the project is so readers have context.\n" +
+                "2. Explain what the new commit actually means for the project.\n" +
+                "3. You MUST include the exact Commit URL at the end of the post so people can click it.\n" +
+                "4. Do NOT use any hashtags.\n" +
+                "5. Keep the total post under 400 characters.\n" +
+                "6. Do not wrap the response in quotation marks.";
 
         Map<String, Object> textPart = new HashMap<>();
         textPart.put("text", prompt);

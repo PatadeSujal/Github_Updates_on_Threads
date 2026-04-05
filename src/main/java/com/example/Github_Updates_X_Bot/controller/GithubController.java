@@ -45,8 +45,10 @@ public class GithubController {
             // Remove the hashtag from the text so it looks cleaner on Threads
             String cleanMessage = message.replaceAll("(?i)#threads", "").trim();
 
+            String commitUrl = (String) commits.get(0).get("url");
+
             // Use the AI Service to generate a dynamic post
-            String aiGeneratedPost = aiService.generatePost(repoName, repoDescription, cleanMessage);
+            String aiGeneratedPost = aiService.generatePost(repoName, repoDescription, cleanMessage, commitUrl);
 
             // Trigger the thread post
             threadsService.postThread(aiGeneratedPost);
