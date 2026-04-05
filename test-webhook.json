@@ -1,10 +1,11 @@
 {
   "repository": {
-    "name": "Github_Updates_X_Bot"
+    "name": "Github_Updates_X_Bot",
+    "description": "An automated system to port GitHub push events natively to Meta Threads"
   },
   "commits": [
     {
-      "message": "Hello from automated testing! The webhook to X bot is functional 🚀"
+      "message": "Hello from automated testing! The webhook to X bot is functional 🚀 #Threads"
     }
   ]
 }
