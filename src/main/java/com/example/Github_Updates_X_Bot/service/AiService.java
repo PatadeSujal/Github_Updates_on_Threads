@@ -30,7 +30,7 @@ public class AiService {
             return "🚀 Update to " + repoName + "!\n\n📝 Changes: " + commitMessage;
         }
 
-        String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=" + apiKey;
+        String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + apiKey;
 
         String prompt = "You are an enthusiastic developer sharing a project update on Threads. " +
                 "Write an engaging Threads post explaining this code commit.\n" +
