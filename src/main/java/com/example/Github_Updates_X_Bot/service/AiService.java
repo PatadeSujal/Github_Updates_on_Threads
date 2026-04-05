@@ -30,12 +30,15 @@ public class AiService {
             return "🚀 Update to " + repoName + "!\n\n📝 Changes: " + commitMessage;
         }
 
-        String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + apiKey;
+        String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" + apiKey;
 
         String prompt = "You are an enthusiastic developer sharing a project update on Threads. " +
                 "Write an engaging Threads post explaining this code commit.\n" +
                 "Project Name: " + repoName + "\n" +
-                "Project Context: " + (repoDescription != null && !repoDescription.isEmpty() ? repoDescription : "A cool software application") + "\n" +
+                "Project Context: "
+                + (repoDescription != null && !repoDescription.isEmpty() ? repoDescription
+                        : "A cool software application")
+                + "\n" +
                 "Commit Message: " + commitMessage + "\n" +
                 "Commit URL: " + (commitUrl != null ? commitUrl : "") + "\n\n" +
                 "STRICT INSTRUCTIONS:\n" +
@@ -44,7 +47,8 @@ public class AiService {
                 "3. You MUST include the exact Commit URL at the end of the post so people can click it.\n" +
                 "4. Do NOT use any hashtags.\n" +
                 "5. Keep the total post under 400 characters.\n" +
-                "6. Do not wrap the response in quotation marks.";
+                "6. Do not wrap the response in quotation marks.\n" +
+                "7. The response should not be greater than 250 characters";
 
         Map<String, Object> textPart = new HashMap<>();
         textPart.put("text", prompt);
